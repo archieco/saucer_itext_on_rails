@@ -12,6 +12,7 @@ module FlyingSaucer
       def self.filter(controller)
         return unless controller.params[:format] == "pdf"
         begin
+          controller.response.content_type = "application/pdf"
           uri = URI.parse(controller.request.env['REQUEST_URI'])
           controller.response.body = create_pdf(controller.response.body,"#{uri.scheme}://#{uri.host}:#{uri.port}#{File.dirname(uri.path)}") 
         rescue
